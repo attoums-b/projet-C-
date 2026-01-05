@@ -5,27 +5,25 @@ using namespace std;
 class Hero
 {
 private:
+    int idHero;
     string nomHero;
-    string typeHero;
     int pv;
     int attaque;
     int defense;
     int vitesse;
 
 public:
-    Hero(string nomHero, int pv, int attaque, int defense, int vitesse)
+    Hero(string nom, int pvHero, int attaqueHero, int defenseHero, int vitesseHero)
     {
-        this->nomHero = nomHero;
-        this->pv = pv;
-        this->attaque = attaque;
-        this->defense = defense;
-        this->vitesse = vitesse;
+        idHero ++;
+        nomHero = nom;
+        pv = pvHero;
+        attaque = attaqueHero;
+        defense = defenseHero;
+        vitesse = vitesseHero;
     }
 
-    void afficherStats()
-    {
-        cout << "ENSEMBLE DES STATISTIQUES" << endl;
-    }
+    void afficherStats();
     virtual int getClasse() const = 0;
     virtual int calculerDegats(const Hero &cible);
     virtual void perdrePV(int montant);
