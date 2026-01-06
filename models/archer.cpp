@@ -1,18 +1,31 @@
-#include "hero.h"
+#include "Hero.h"
 #include <iostream>
 
-class archer : public Hero {
+class Archer : public Hero {
 public:
-    archer(string nom) : Hero(nom, 85, 75, 50, 95) {}
+    // Stats : PV=85, ATK=75, DEF=50, VIT=95
+    Archer(string nom) : Hero(nom, 85, 75, 50, 95) {}
 
     int getClasse() const override { return 3; }
 
+    // --- ATTAQUE : Le Coup Critique ---
+    int calculerDegats(const Hero &cible) override {
+        int degats = Hero::calculerDegats(cible);
+        // Chance de critique = Vitesse / 5
+        if ((rand() % 100) < (getVitesse() / 5)) {
+            degats *= 2;
+            cout << "[CRITIQUE] " << getNom() << " a trouve une faille !" << endl;
+        }
+        return degats;
+    }
+
+    // --- DEFENSE : L'Esquive ---
     void perdrePV(int montant) override {
-        // Esquive basée sur la vitesse (accès via getter)
+        // Chance d'esquive = Vitesse / 10
         if ((rand() % 100) < (getVitesse() / 10)) {
-            cout << getNom() << " a esquive !" << endl;
+            cout << "[ESQUIVE] " << getNom() << " a evite le coup !" << endl;
         } else {
-            Hero::perdrePV(montant); // Appelle la méthode de base
+            Hero::perdrePV(montant); // Utilise la méthode private du parent
         }
     }
 };
