@@ -3,28 +3,37 @@
 
 #include <iostream>
 
+
 using namespace std;
 
 class Hero
 {
 private:
     int idHero;
+    static int compteurId;
     string nomHero;
     int pv;
-    int pvMax = 150; // tout héro à initialement 100 pv max
+    int pvMax = 150; // tout héro à initialement 150 pv max
     int attaque;
     int defense;
     int vitesse;
 
     // constructeur
 public:
+/**
+ * Un héros à une 
+ */
     Hero(string nom, int pvHero, int attaque, int defense, int vitesse);
 
     // Destructeur
     virtual ~Hero();
 
     // getters et setters pour acceder aux données
+    int getId(){
+        return idHero;
+    }
     string getNom() const
+
     {
         return nomHero;
     }
@@ -33,22 +42,22 @@ public:
         return pv;
     }
 
-    int getPVMax()
+    int getPVMax() const
     {
         return pvMax;
     }
 
-    int getAttaque()
+    int getAttaque() const
     {
         return attaque;
     }
 
-    int getDefense()
+    int getDefense() const
     {
         return defense;
     }
 
-    int getVitesse()
+    int getVitesse() const
     {
         return vitesse;
     }
@@ -60,9 +69,16 @@ public:
 
     virtual int getClasse() const = 0;
     virtual int calculerDegats(const Hero &cible);
+    virtual void attaquer();
+    // les héros ont des manières différentes de perdre des pv 
     virtual void perdrePV(int valeurPerdue);
-    virtual void restaurerPV(int valeurArestorer);
+
+    // à la fin de chaque combat les pv se restaurent de la meme manière
+    void restaurerPV(int valeurArestaurer);
+
+    //methode affichant toutes les informations sur l'héros
     void afficherStats();
 };
+
 
 #endif

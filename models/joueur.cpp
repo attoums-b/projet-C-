@@ -1,60 +1,95 @@
+#include "hero.h"
 #include <iostream>
+
+
+
 using namespace std;
-<<<<<<< HEAD
 class Joueur{
 private:
     string nom;
-    Hero * hero[6];
-    int nbHeros;
-
-    public:
-    Joueur(string n){
-        nom = n ;
-    }
-    //methode 
-    void ajouterHero(Hero* h){
-        if (nbHeros < 6){
-            hero[nbHeros++] = h;
-        }
-    }
-    void selectionnerEquipe(){
-        int choix;
-        cout<< R"(QUE VOULEZ-VOUS FAIRE?
-=======
-class Joueur
-{
-private:
-    string nom;
-    Hero *hero[2]; // un joueur possède 3 héros au maximum
-    int nbHeros;
+    Hero* collectionHeros[6];// les héros possédés par le joueur
+    Hero* equipeHeros[3]; // l'équipe selectionnée
+    int nbHerosEquipe;
+    int nbCollection;
 
 public:
-    Joueur(string n)
-    {
-        nom = n;
+/*
+
+-Un joueur possède un nom , une collection d'héros et une équip d'héros pour
+effectuer un combat
+nbHerosEquipe et nbCollection servent à gérer les indices des élements dex
+différents tableaux 
+ */
+    Joueur(string n){
+        nom = n ;
+        nbHerosEquipe = 0;
+        nbCollection = 0;
     }
-    // methodes
-    void ajouterHero(Hero *h)
-    {
-        if (nbHeros < 6)
-        {
-            hero[nbHeros++] = h;
+
+    //Destructeur
+    ~Joueur(){};
+
+
+    //methode permettant d'ajouter un héros à la collection
+    void ajouterHeroCollection(Hero* hr){
+        if(nbCollection < 6){
+            collectionHeros[nbCollection++] = hr;
+
+        }else{
+            cout<<"Impossible d'ajouter! , roster plein"<<endl;
+        }
+
+    }
+
+    //methode permettant d'ajouter un héros à l'équipe de héros après la selection 
+    void ajouterHero(Hero* h){
+        if (nbHerosEquipe < 3){
+            equipeHeros[nbHerosEquipe++] = h;
         }
     }
-    void selectionnerEquipe()
-    {
+
+    //methode permmettant à un joueur de selectionner son équipe pour le combat
+    void selectionnerEquipe(){
+        /*
+        Pour selectionner l'équipe , nous allons proposer à l'utilisateur deux type de sélection:
+         I- la selection aléatoire 
+         II- la selection manuelle(c'est lui meme qui le fait)
+         */
         int choix;
-        cout << R"(COMMENT VOULEZ VOUS SELECTIONNER VOTRE EQUIPE ?
->>>>>>> 8b4806f (classe héros bien modifiée)
-        1- générer aléatoirement un héros
-        2- choisir mes 3 héros 
-    )";
-        cin >> choix;
-<<<<<<< HEAD
+        cout <<"QUE VOULEZ-VOUS FAIRE?"<<endl;
+        cout <<"1- générer aléatoirement un héros"<<endl;
+        cout <<"2- choisir mes 3 héros"<<endl;
+        cin>> choix;
+
         if (choix == 1){
+            cout<<"Génération aléatoire en cours..."<<endl;
             //gestionnaire.genererHerosAleatoire()
         }
         else if (choix == 2){
+            /*
+            +Si il choisit de selectionner ses 3 héros:
+                +Boucle allant de 0 à 3:
+                -afficher 'joueur choisis ton heros n°1'
+                    +parcourir la liste des héros
+                    -afficher leur nom et leur type 
+                -récupérer le choix de l'utilisateur
+                -ajouter ce choix à la liste de son équipe
+
+             */
+            nbHerosEquipe = 0;
+            int choix;
+            for(int i = 0; i <3; i++){
+                cout<<"Joueur " << nom << ", choississez votre héros n°" << i + 1<<endl;             
+                for(int j = 0; i <nbCollection ; j++){
+                    cout<<collectionHeros[j]->getId()<<""<< collectionHeros[i]->getNom() << " :" <<collectionHeros[i]->getClasse();
+
+        }
+            int numChoisi;
+            cout<<"Quel est votre choix? entrez le numero: ";
+            cin >> numChoisi;
+            ajouterHero(collectionHeros[numChoisi]);
+
+            }
 
         }
 
@@ -63,18 +98,3 @@ public:
 
 
 
-=======
-        if (choix == 1)
-        {
-            // gestionnaire.genererHerosAleatoire()
-        }
-        else if (choix == 2)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                cout << "Joueur ,choisissez votre héros numero" << i + 1 << endl;
-            }
-        }
-    }
-};
->>>>>>> 8b4806f (classe héros bien modifiée)
