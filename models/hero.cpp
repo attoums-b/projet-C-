@@ -1,11 +1,15 @@
-#include "hero.h"
+#include "hero.hpp"
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
 
 
-Hero::~Hero() {};
+using namespace std;
+
+
 int Hero::compteurId =0;
+
+Hero::~Hero() {};
 //constructeur de 
 
 Hero::Hero(string nom,int pvHero, int atk, int def, int vit){
@@ -64,13 +68,20 @@ void Hero::afficherStats() {
     cout << "Vitesse  : " << vitesse << endl;
     cout << "=========================================" << endl;
 }
-
+//methode permettant à l'héros vainqueur d'un combat de restaurer ses pv
 int Hero::restaurerPV(){
     /*
     à la fin du combat , le gagnant récupère les PV qu'il a perdu 
     il s'agit de faire les pvMax moins la valeur finale qu'il a perdue 
     accumulée tout au long du combat 
     */
-    this->pv = pvMax - valeurPerdue;
-    cout<<"Points de vie restaurés!"<<endl;
+    this->pv = this->pvMax;
+    cout<< this->nomHero << ": restauration des PV..."
+}
+
+void Hero::attaquer(Hero &cible){
+    int pointsAttaque = this->calculerDegats(cible);
+    cout<< this->getNom() << " attaque..., points d'attaque: "<< pointsAttaque <<endl;
+
+    cible.perdrePV(pointsAttaque);
 }

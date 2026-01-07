@@ -1,5 +1,5 @@
-#ifndef HERO_H
-#define HERO_H
+#ifndef HERO_HPP
+#define HERO_HPP
 
 #include <iostream>
 
@@ -69,12 +69,13 @@ public:
 
     virtual int getClasse() const = 0;
     virtual int calculerDegats(const Hero &cible);
-    virtual void attaquer();
     // les héros ont des manières différentes de perdre des pv 
-    virtual void perdrePV(int valeurPerdue);
+    virtual void perdrePV(int montant);
+
+    void attaquer(Hero &cible);
 
     // à la fin de chaque combat les pv se restaurent de la meme manière
-    void restaurerPV(int valeurArestaurer);
+    void restaurerPV();
 
     //methode affichant toutes les informations sur l'héros
     void afficherStats();
